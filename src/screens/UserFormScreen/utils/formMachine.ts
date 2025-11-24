@@ -2,7 +2,7 @@ import { Draft } from "immer";
 import { HealthInput } from "../schemas";
 
 // 1. 상태(State) 정의
-export type FormStep = "intro" | "basicInfo" | "bodyInfo" | "medications" | "concerns" | "exercise" | "exerciseDetail" | "sleepPattern" | "review" | "submitting";
+export type FormStep = "intro" | "basicInfo" | "bodyInfo" | "medications" | "concerns" | "exercise" | "exerciseDetail" | "sleepPattern" | "completed";
 
 // 2. 컨텍스트(Context) 데이터 정의
 export type FormContext = Partial<HealthInput>;
@@ -12,7 +12,7 @@ export type FormState = {
   context: FormContext;
 };
 
-export type FormEvent = { type: "NEXT"; data: Partial<HealthInput> } | { type: "PREV"; data?: Partial<HealthInput> } | { type: "SUBMIT"; data: Partial<HealthInput> };
+export type FormEvent = { type: "NEXT"; data: Partial<HealthInput> } | { type: "PREV"; data?: Partial<HealthInput> };
 
 function mergeContextData(draft: Draft<FormContext>, data: Partial<HealthInput>): void {
   Object.keys(data).forEach((key) => {
@@ -73,7 +73,7 @@ export const formReducer = (draft: Draft<FormState>, event: FormEvent): void => 
       break;
 
     case "sleepPattern":
-      if (event.type === "SUBMIT") draft.step = "submitting";
+      if (event.type === "NEXT") draft.step = "completed";
       if (event.type === "PREV") {
         // 이전 단계가 exerciseDetail일 수도 있고 exercise일 수도 있음
         // exercise 값을 확인하여 이전 단계 결정
