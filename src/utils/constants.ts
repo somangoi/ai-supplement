@@ -1,9 +1,4 @@
-// API Configuration
-export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || "https://api.example.com";
-export const API_TIMEOUT = 30000; // 30 seconds
 
-// App Configuration
-export const USE_MOCK_DATA = process.env.EXPO_PUBLIC_USE_MOCK === "true" || true;
 
 // Theme Colors
 export const COLORS = {
