@@ -36,5 +36,4 @@ const Container = styled.View`
 
 const ContentWrapper = styled.View`
   flex: 1;
-  padding: ${theme.spacing.lg}px;
 `;
