@@ -77,6 +77,24 @@ const SYSTEM_PROMPT = `
 function formatUserDataForPrompt(userData: HealthInput): string {
   const age = new Date().getFullYear() - userData.birthYear;
   const genderLabel = userData.gender === "male" ? "남성" : userData.gender === "female" ? "여성" : "기타";
+
+  // 나이대 구분
+  let ageGroup = "";
+  if (age < 30) ageGroup = "20대";
+  else if (age < 40) ageGroup = "30대";
+  else if (age < 50) ageGroup = "40대";
+  else if (age < 60) ageGroup = "50대";
+  else ageGroup = "60대 이상";
+
+  // BMI 계산 및 해석
+  const bmi = userData.weight / Math.pow(userData.height / 100, 2);
+  let bmiCategory = "";
+  if (bmi < 18.5) bmiCategory = "저체중";
+  else if (bmi < 23) bmiCategory = "정상";
+  else if (bmi < 25) bmiCategory = "과체중";
+  else if (bmi < 30) bmiCategory = "경도비만";
+  else bmiCategory = "중등도비만 이상";
+
   const concernLabels: Record<string, string> = {
     obesity: "비만",
     digestion: "소화불량",
@@ -97,26 +115,34 @@ function formatUserDataForPrompt(userData: HealthInput): string {
 
   const concerns = userData.concerns.map((c) => concernLabels[c] || c).join(", ");
 
-  let exerciseInfo = "운동을 하지 않음";
+  let exerciseInfo = "운동을 하지 않음 (활동량 부족)";
   if (userData.exercise.status && userData.exercise.intensity) {
-    const intensityLabel = userData.exercise.intensity === "light" ? "가벼운" : userData.exercise.intensity === "moderate" ? "중간" : "강도 높은";
-    exerciseInfo = `${intensityLabel} 강도로 ${userData.exercise.frequency || "규칙적으로"} 운동 (${userData.exercise.duration || "시간 미상"})`;
+    const intensityLabel =
+      userData.exercise.intensity === "light" ? "가벼운 강도 (산책, 요가 등)" : userData.exercise.intensity === "moderate" ? "중간 강도 (조깅, 수영 등)" : "높은 강도 (헬스, 달리기 등)";
+    exerciseInfo = `${intensityLabel}로 ${userData.exercise.frequency || "규칙적으로"} 운동, ${userData.exercise.duration || "시간 미상"}`;
   }
 
-  const sleepQualityLabel = userData.sleep.quality === "good" ? "좋음" : userData.sleep.quality === "average" ? "보통" : "안좋음";
+  const sleepQualityLabel = userData.sleep.quality === "good" ? "좋음 (숙면)" : userData.sleep.quality === "average" ? "보통 (보통)" : "안좋음 (불면, 자주 깸)";
+
+  // 수면 시간 평가
+  let sleepEvaluation = "";
+  if (userData.sleep.hours < 6) sleepEvaluation = "(매우 부족)";
+  else if (userData.sleep.hours < 7) sleepEvaluation = "(부족)";
+  else if (userData.sleep.hours <= 8) sleepEvaluation = "(적정)";
+  else sleepEvaluation = "(과다)";
 
   return `
 ## 사용자 건강 정보
 
 **기본 정보:**
 - 이름: ${userData.name}
-- 나이: ${age}세 (${userData.birthYear}년생)
+- 나이: ${age}세 (${ageGroup}, ${userData.birthYear}년생)
 - 성별: ${genderLabel}
 
 **신체 정보:**
 - 키: ${userData.height}cm
 - 몸무게: ${userData.weight}kg
-- BMI: ${(userData.weight / Math.pow(userData.height / 100, 2)).toFixed(1)}
+- BMI: ${bmi.toFixed(1)} (${bmiCategory})
 
 **복용 중인 약물:**
 ${userData.medications || "없음"}
@@ -128,12 +154,12 @@ ${concerns}
 ${exerciseInfo}
 
 **수면 패턴:**
-- 수면 시간: 하루 ${userData.sleep.hours}시간
+- 수면 시간: 하루 ${userData.sleep.hours}시간 ${sleepEvaluation}
 - 수면 질: ${sleepQualityLabel}
 
 ---
 
-위 정보를 바탕으로, 각 영양제 추천 시 사용자의 구체적인 수치와 상황을 언급하여 설득력 있는 추천 이유를 작성해주세요.
+위 정보를 바탕으로, 각 영양제 추천 시 사용자의 구체적인 수치와 상황(나이대, BMI 상태, 운동 강도, 수면 시간 등)을 반드시 언급하여 설득력 있는 추천 이유를 작성해주세요.
 `;
 }
 
