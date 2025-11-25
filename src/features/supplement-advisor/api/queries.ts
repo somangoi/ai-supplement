@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchSupplementRecommendations } from "../api";
+import { fetchSupplementRecommendations } from ".";
 import { HealthInput } from "@/features/user-form/types/schemas";
 import { SupplementResponse } from "../types/schemas";
 

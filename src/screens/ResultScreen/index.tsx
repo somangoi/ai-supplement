@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Layout } from "@/shared/components/Layout";
-import { useSupplementAdvisor } from "@/features/supplement-advisor/model/useSupplementAdvisor";
+import { useSupplementAdvisor } from "@/features/supplement-advisor/api/queries";
 import Loading from "@/features/supplement-advisor/components/Loading";
 import ErrorComponent from "@/features/supplement-advisor/components/Error";
 import Result from "@/features/supplement-advisor/components/Result";
