@@ -4,6 +4,7 @@ import { useSupplementAdvisor } from "@/features/supplement-advisor/api/queries"
 import Loading from "@/features/supplement-advisor/components/Loading";
 import ErrorComponent from "@/features/supplement-advisor/components/Error";
 import Result from "@/features/supplement-advisor/components/Result";
+import { LLMResponseError } from "@/features/supplement-advisor/types/errors";
 import type { RootStackParamList, ResultScreenProps } from "@/shared/types/navigation";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -19,7 +20,7 @@ export default function ResultScreen() {
 
   const formData = params.formData;
 
-  const { data, isLoading, isError, refetch } = useSupplementAdvisor({
+  const { data, isLoading, isError, error, refetch } = useSupplementAdvisor({
     formData,
     enabled: true, // 화면 진입 시 자동 fetch
   });
@@ -27,7 +28,15 @@ export default function ResultScreen() {
   return (
     <Layout scrollable={false}>
       {isLoading && <Loading />}
-      {isError && <ErrorComponent onRetry={refetch} onGoBack={() => navigation.navigate("UserForm")} />}
+      {isError && (
+        <ErrorComponent
+          onRetry={refetch}
+          onGoBack={() => navigation.navigate("UserForm")}
+          errorMessage={error?.message}
+          rawResponse={error instanceof LLMResponseError ? error.rawResponse : undefined}
+          errorType={error instanceof LLMResponseError ? error.errorType : undefined}
+        />
+      )}
       {data && <Result result={data} userName={formData?.name} onReset={() => navigation.navigate("UserForm")} />}
     </Layout>
   );
