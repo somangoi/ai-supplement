@@ -19,8 +19,8 @@ const WEIGHT_OPTIONS = Array.from({ length: 121 }, (_, i) => {
 });
 
 // 중간값 계산
-const DEFAULT_HEIGHT = 175; // 140 + 35 (중간값)
-const DEFAULT_WEIGHT = 90; // 30 + 60 (중간값)
+const DEFAULT_HEIGHT = 170; // 키 170cm
+const DEFAULT_WEIGHT = 65; // 몸무게 65kg
 
 const Step2_BodyInfo = (props: StepComponentProps) => {
   const { initialData } = props;

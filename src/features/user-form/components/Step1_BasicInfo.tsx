@@ -23,6 +23,8 @@ const generateYearOptions = () => {
 
 const YEAR_OPTIONS = generateYearOptions();
 
+const DEFAULT_BIRTH_YEAR = 2000; // 2000년생
+
 const Step1_BasicInfo = (props: StepComponentProps) => {
   const { initialData } = props;
   const {
@@ -33,7 +35,7 @@ const Step1_BasicInfo = (props: StepComponentProps) => {
   } = useStepForm<{ name: string; birthYear: number; gender: "male" | "female" | "other" }>(props, {
     defaultValues: {
       name: initialData?.name,
-      birthYear: initialData?.birthYear,
+      birthYear: initialData?.birthYear ?? DEFAULT_BIRTH_YEAR,
       gender: initialData?.gender,
     },
     resolver: zodResolver(healthInputSchema.pick({ name: true, birthYear: true, gender: true })),

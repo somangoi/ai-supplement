@@ -8,6 +8,9 @@ import { StepComponentProps } from "../types";
 import { useStepForm } from "../hooks/useStepForm";
 
 const SLEEP_QUALITY_OPTIONS = getSleepQualityOptions();
+
+const DEFAULT_SLEEP_HOURS = 6; // 6시간
+
 const Step6_SleepPattern = (props: StepComponentProps) => {
   const { initialData } = props;
   const {
@@ -23,7 +26,7 @@ const Step6_SleepPattern = (props: StepComponentProps) => {
   }>(props, {
     defaultValues: {
       sleep: {
-        hours: initialData?.sleep?.hours,
+        hours: initialData?.sleep?.hours ?? DEFAULT_SLEEP_HOURS,
         quality: initialData?.sleep?.quality,
       },
     },
