@@ -1,5 +1,5 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { HealthInput } from "@/screens/UserFormScreen/schemas";
+import { HealthInput } from "@/features/user-form/types/schemas";
 
 export type RootStackParamList = {
   UserForm: undefined;

@@ -1,4 +1,4 @@
-import { HealthInput } from "@/screens/UserFormScreen/schemas";
+import { HealthInput } from "@/features/user-form/types/schemas";
 import { SupplementResponse, supplementResponseSchema } from "../types/schemas";
 import { mockRecommendation } from "./mockData";
 

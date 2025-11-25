@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/Input";
-import { healthInputSchema } from "../schemas";
+import { healthInputSchema } from "../types/schemas";
 import UserFormLayout from "./UserFormLayout";
 import { StepComponentProps } from "../types";
 import { useStepForm } from "../hooks/useStepForm";

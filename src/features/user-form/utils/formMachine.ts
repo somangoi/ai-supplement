@@ -1,5 +1,5 @@
 import { Draft } from "immer";
-import { HealthInput } from "../schemas";
+import { HealthInput } from "../types/schemas";
 
 // 1. 상태(State) 정의
 export type FormStep = "intro" | "basicInfo" | "bodyInfo" | "medications" | "concerns" | "exercise" | "exerciseDetail" | "sleepPattern" | "completed";

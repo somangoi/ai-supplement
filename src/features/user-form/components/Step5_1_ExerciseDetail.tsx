@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller } from "react-hook-form";
 import { Picker } from "@/components/Picker";
 import { Selector } from "@/components/Selector";
-import { healthInputSchema, getExerciseIntensityOptions, type ExerciseIntensity } from "../schemas";
+import { healthInputSchema, getExerciseIntensityOptions, type ExerciseIntensity } from "../types/schemas";
 import UserFormLayout from "./UserFormLayout";
 import { StepComponentProps } from "../types";
 import { useStepForm } from "../hooks/useStepForm";

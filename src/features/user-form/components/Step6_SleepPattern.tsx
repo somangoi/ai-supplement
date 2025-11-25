@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 import { Selector } from "@/components/Selector";
 import { Picker } from "@/components/Picker";
 import UserFormLayout from "./UserFormLayout";
-import { healthInputSchema, getSleepQualityOptions, type SleepQuality } from "../schemas";
+import { healthInputSchema, getSleepQualityOptions, type SleepQuality } from "../types/schemas";
 import { StepComponentProps } from "../types";
 import { useStepForm } from "../hooks/useStepForm";
 

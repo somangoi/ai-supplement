@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/Input";
 import { Selector } from "@/components/Selector";
 import { Picker } from "@/components/Picker";
-import { healthInputSchema, getGenderOptions, type Gender } from "../schemas";
+import { healthInputSchema, getGenderOptions, type Gender } from "../types/schemas";
 import UserFormLayout from "./UserFormLayout";
 import { StepComponentProps } from "../types";
 import { useStepForm } from "../hooks/useStepForm";
