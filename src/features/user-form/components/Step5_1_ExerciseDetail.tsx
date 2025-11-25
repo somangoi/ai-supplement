@@ -9,6 +9,10 @@ import { useStepForm } from "../hooks/useStepForm";
 
 const EXERCISE_INTENSITY_OPTIONS = getExerciseIntensityOptions();
 
+// 기본값 설정 (중간값)
+const DEFAULT_FREQUENCY = "3"; // 주 3회
+const DEFAULT_DURATION = "60"; // 1시간
+
 const Step5_1_ExerciseDetail = (props: StepComponentProps) => {
   const { initialData } = props;
   const {
@@ -25,7 +29,12 @@ const Step5_1_ExerciseDetail = (props: StepComponentProps) => {
     };
   }>(props, {
     defaultValues: {
-      exercise: initialData?.exercise,
+      exercise: {
+        status: initialData?.exercise?.status ?? true,
+        frequency: initialData?.exercise?.frequency ?? DEFAULT_FREQUENCY,
+        duration: initialData?.exercise?.duration ?? DEFAULT_DURATION,
+        intensity: initialData?.exercise?.intensity,
+      },
     },
     resolver: zodResolver(healthInputSchema.pick({ exercise: true })),
   });
