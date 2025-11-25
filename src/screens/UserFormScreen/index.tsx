@@ -12,14 +12,27 @@ import Step6_SleepPattern from "./components/Step6_SleepPattern";
 import { Layout } from "@/components/Layout";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/native";
-import SubmittingStep from "./components/SubmittingStep";
+import { useEffect } from "react";
+import { HealthInput } from "./schemas";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "@/types/navigation";
 
 export default function UserFormScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   // 상태 머신 초기화
   const [state, dispatch] = useImmerReducer<FormState, FormEvent>(formReducer, {
     step: "intro" as const,
     context: {},
   });
+
+  useEffect(() => {
+    if (state.step === "completed") {
+      // 폼 데이터를 params로 전달하며 결과 화면으로 이동
+      navigation.navigate("Result", { formData: state.context as HealthInput });
+    }
+  }, [state.step, state.context, navigation]);
 
   // 단계별 렌더링 함수
   const renderStep = () => {
@@ -39,9 +52,7 @@ export default function UserFormScreen() {
       case "exerciseDetail":
         return <Step5_1_ExerciseDetail initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
       case "sleepPattern":
-        return <Step6_SleepPattern initialData={state.context} onNext={(data) => dispatch({ type: "SUBMIT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      case "submitting":
-        return <SubmittingStep initialData={state.context} />;
+        return <Step6_SleepPattern initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
       default:
         return null;
     }
@@ -58,7 +69,7 @@ export default function UserFormScreen() {
 }
 
 const getProgress = (step: string) => {
-  const steps = ["basicInfo", "bodyInfo", "medications", "concerns", "exercise", "exerciseDetail", "sleepPattern", "submitting"];
+  const steps = ["basicInfo", "bodyInfo", "medications", "concerns", "exercise", "exerciseDetail", "sleepPattern"];
   const index = steps.indexOf(step);
   return `${((index + 1) / steps.length) * 100}%`;
 };

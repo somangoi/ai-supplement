@@ -1,0 +1,34 @@
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Layout } from "@/components/Layout";
+import { useSupplementAdvisor } from "@/features/supplement-advisor/model/useSupplementAdvisor";
+import Loading from "@/features/supplement-advisor/components/Loading";
+import ErrorComponent from "@/features/supplement-advisor/components/Error";
+import Result from "@/features/supplement-advisor/components/Result";
+import type { RootStackParamList, ResultScreenProps } from "@/types/navigation";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+export default function ResultScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { params } = useRoute<ResultScreenProps["route"]>();
+
+  // formData 없으면 바로 돌아가기
+  if (!params?.formData) {
+    navigation.navigate("UserForm");
+    return null;
+  }
+
+  const formData = params.formData;
+
+  const { data, isLoading, isError, refetch } = useSupplementAdvisor({
+    formData,
+    enabled: true, // 화면 진입 시 자동 fetch
+  });
+
+  return (
+    <Layout scrollable={false}>
+      {isLoading && <Loading />}
+      {isError && <ErrorComponent onRetry={refetch} onGoBack={() => navigation.navigate("UserForm")} />}
+      {data && <Result result={data} userName={formData?.name} onReset={() => navigation.navigate("UserForm")} />}
+    </Layout>
+  );
+}
