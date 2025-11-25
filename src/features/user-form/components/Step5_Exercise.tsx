@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller } from "react-hook-form";
-import { Selector } from "@/components/Selector";
+import { Selector } from "@/shared/components/Selector";
 import { healthInputSchema, getExerciseStatusOptions } from "../types/schemas";
 import UserFormLayout from "./UserFormLayout";
 import { StepComponentProps } from "../types";

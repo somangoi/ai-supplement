@@ -1,9 +1,9 @@
 import { FlatList } from "react-native";
 import styled from "@emotion/native";
 import { Supplement, SupplementResponse } from "@/features/supplement-advisor/types/schemas";
-import { theme } from "@/styles/theme";
-import { Button } from "@/components/Button";
-import Typography from "@/components/Typography";
+import { theme } from "@/shared/styles/theme";
+import { Button } from "@/shared/components/Button";
+import Typography from "@/shared/components/Typography";
 
 interface ResultProps {
   result: SupplementResponse;

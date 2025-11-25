@@ -1,5 +1,5 @@
 import styled from "@emotion/native";
-import { theme } from "@/styles/theme";
+import { theme } from "@/shared/styles/theme";
 import { TextProps, TextStyle, ViewStyle } from "react-native";
 
 export interface TypographyProps {

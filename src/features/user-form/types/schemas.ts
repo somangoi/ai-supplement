@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SelectorOption } from "@/components/Selector";
+import { SelectorOption } from "@/shared/components/Selector";
 
 // Enum 타입 정의
 export const GenderEnum = z.enum(["male", "female", "other"]);

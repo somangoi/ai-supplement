@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import styled from "@emotion/native";
-import { theme } from "@/styles/theme";
+import { theme } from "@/shared/styles/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface LayoutProps {

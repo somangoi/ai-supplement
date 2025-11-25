@@ -1,10 +1,10 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Layout } from "@/components/Layout";
+import { Layout } from "@/shared/components/Layout";
 import { useSupplementAdvisor } from "@/features/supplement-advisor/model/useSupplementAdvisor";
 import Loading from "@/features/supplement-advisor/components/Loading";
 import ErrorComponent from "@/features/supplement-advisor/components/Error";
 import Result from "@/features/supplement-advisor/components/Result";
-import type { RootStackParamList, ResultScreenProps } from "@/types/navigation";
+import type { RootStackParamList, ResultScreenProps } from "@/shared/types/navigation";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export default function ResultScreen() {

@@ -9,14 +9,14 @@ import Step4_Concerns from "@/features/user-form/components/Step4_Concerns";
 import Step5_Exercise from "@/features/user-form/components/Step5_Exercise";
 import Step5_1_ExerciseDetail from "@/features/user-form/components/Step5_1_ExerciseDetail";
 import Step6_SleepPattern from "@/features/user-form/components/Step6_SleepPattern";
-import { Layout } from "@/components/Layout";
-import { theme } from "@/styles/theme";
+import { Layout } from "@/shared/components/Layout";
+import { theme } from "@/shared/styles/theme";
 import styled from "@emotion/native";
 import { useEffect } from "react";
 import { HealthInput } from "@/features/user-form/types/schemas";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "@/types/navigation";
+import type { RootStackParamList } from "@/shared/types/navigation";
 
 export default function UserFormScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller } from "react-hook-form";
-import { Selector } from "@/components/Selector";
-import { Picker } from "@/components/Picker";
+import { Selector } from "@/shared/components/Selector";
+import { Picker } from "@/shared/components/Picker";
 import UserFormLayout from "./UserFormLayout";
 import { healthInputSchema, getSleepQualityOptions, type SleepQuality } from "../types/schemas";
 import { StepComponentProps } from "../types";
