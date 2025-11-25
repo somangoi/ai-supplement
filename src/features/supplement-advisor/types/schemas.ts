@@ -8,6 +8,8 @@ export const supplementSchema = z.object({
   frequency: z.string(),
   timing: z.string(),
   reason: z.string(),
+  productName: z.string().optional(),
+  purchaseUrl: z.string().url().optional(),
 });
 
 export type Supplement = z.infer<typeof supplementSchema>;

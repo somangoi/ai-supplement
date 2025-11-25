@@ -63,6 +63,9 @@ export function parsePartialResponse(rawData: any, rawContent: string): Suppleme
             frequency: rec.frequency ?? "1일 1회",
             timing: rec.timing ?? "식사 후",
             reason: rec.reason ?? "건강 개선에 도움",
+            // optional 필드
+            ...(rec.productName && { productName: rec.productName }),
+            ...(rec.purchaseUrl && { purchaseUrl: rec.purchaseUrl }),
           };
         } catch (e) {
           return null;
