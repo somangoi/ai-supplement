@@ -22,10 +22,7 @@ export const healthInputSchema = z.object({
   height: z.number({ message: "키를 입력해주세요" }).min(50).max(250), // cm
   weight: z.number({ message: "몸무게를 입력해주세요" }).min(20).max(300), // kg
   medications: z.string({ message: "복용 중인 약을 입력해주세요" }).optional(),
-  concerns: z
-    .string({ message: "적어도 한개 이상을 입력해주세요" })
-    .min(1)
-    .refine((val) => val && val.trim().length > 0),
+  concerns: z.array(z.string()).min(1, "적어도 한 가지 이상의 고민을 선택해주세요"),
   exercise: z.object({
     status: z.boolean(),
     duration: z.string().optional(),
@@ -61,4 +58,22 @@ export const getSleepQualityOptions = (): SelectorOption<SleepQuality>[] => [
   { value: "bad", label: "안좋음", icon: "😫" },
   { value: "average", label: "보통", icon: "😐" },
   { value: "good", label: "좋음", icon: "🥰" },
+];
+
+export const getConcernOptions = () => [
+  { value: "obesity", label: "비만", icon: "⚖️" },
+  { value: "digestion", label: "소화불량", icon: "🤢" },
+  { value: "blood_pressure", label: "혈압", icon: "💓" },
+  { value: "fatigue", label: "피로감", icon: "😴" },
+  { value: "stress", label: "스트레스", icon: "😰" },
+  { value: "immunity", label: "면역력", icon: "🛡️" },
+  { value: "joint_pain", label: "관절통증", icon: "🦴" },
+  { value: "skin", label: "피부트러블", icon: "🧴" },
+  { value: "hair_loss", label: "탈모", icon: "👨‍🦲" },
+  { value: "insomnia", label: "불면증", icon: "🌙" },
+  { value: "anemia", label: "빈혈", icon: "🩸" },
+  { value: "bone_health", label: "뼈건강", icon: "🦴" },
+  { value: "eye_health", label: "눈건강", icon: "👁️" },
+  { value: "memory", label: "기억력", icon: "🧠" },
+  { value: "cholesterol", label: "콜레스테롤", icon: "🫀" },
 ];

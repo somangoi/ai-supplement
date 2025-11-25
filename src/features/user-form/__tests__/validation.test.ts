@@ -18,9 +18,12 @@ describe("HealthInput Validation", () => {
   });
 
   describe("건강 관련 고민사항 필드 검증", () => {
-    test("정상 케이스", () => expectValid("concerns", "비만, 피로"));
-    test("빈 문자열 거부", () => expectInvalid("concerns", ""));
-    test("공백만 있는 문자열 거부", () => expectInvalid("concerns", "   "));
+    test("정상 케이스", () => expectValid("concerns", ["obesity", "fatigue"]));
+    test("빈 배열 거부", () => expectInvalid("concerns", []));
+    test("최소 1개 이상 선택 필요", () => {
+      const result = healthInputSchema.pick({ concerns: true } as any).safeParse({ concerns: ["obesity"] });
+      expect(result.success).toBe(true);
+    });
   });
 
   describe("운동 여부 필드 검증", () => {
@@ -68,7 +71,7 @@ describe("HealthInput Validation", () => {
         gender: "male",
         height: 175,
         weight: 70,
-        concerns: "비만, 피로",
+        concerns: ["obesity", "fatigue"],
         exercise: {
           status: true,
           duration: "60",
@@ -103,7 +106,7 @@ describe("HealthInput Validation", () => {
         gender: "male" as const,
         height: 175,
         weight: 70,
-        concerns: "피로",
+        concerns: ["fatigue"],
         exercise: { status: false },
         sleep: { hours: 7, quality: "good" as const },
       };
