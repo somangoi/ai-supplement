@@ -16,13 +16,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, scrollable = true }) =
       <StatusBar style="auto" />
       <SafeAreaView style={{ flex: 1 }}>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-          {scrollable ? (
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
-              <ContentWrapper>{children}</ContentWrapper>
-            </ScrollView>
-          ) : (
-            <ContentWrapper>{children}</ContentWrapper>
-          )}
+          <ContentWrapper>{children}</ContentWrapper>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </Container>

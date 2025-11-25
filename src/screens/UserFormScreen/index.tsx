@@ -76,5 +76,4 @@ const getProgress = (step: string) => {
 
 const Container = styled.View`
   flex: 1;
-  padding: ${theme.spacing.md};
 `;

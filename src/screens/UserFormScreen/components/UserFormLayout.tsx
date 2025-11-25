@@ -1,6 +1,7 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/native";
 import React from "react";
+import { ScrollView } from "react-native";
 import PrevNextButton from "./PrevNextButton";
 
 interface Props {
@@ -16,16 +17,28 @@ interface Props {
 const UserFormLayout = ({ title, subtitle, children, onPrev, onNext, prevTitle = "이전", nextTitle = "다음" }: Props) => {
   return (
     <Container>
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
-      <FormSection>{children}</FormSection>
-      {onPrev && onNext && <PrevNextButton onPrev={onPrev} onNext={onNext} prevTitle={prevTitle} nextTitle={nextTitle} />}
+      <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <ScrollContent>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+          <FormSection>{children}</FormSection>
+        </ScrollContent>
+      </ScrollView>
+      {onPrev && onNext && (
+        <Footer>
+          <PrevNextButton onPrev={onPrev} onNext={onNext} prevTitle={prevTitle} nextTitle={nextTitle} />
+        </Footer>
+      )}
     </Container>
   );
 };
 
 const Container = styled.View`
   flex: 1;
+`;
+
+const ScrollContent = styled.View`
+  padding: ${theme.spacing.md};
 `;
 
 const Title = styled.Text`
@@ -43,7 +56,12 @@ const Subtitle = styled.Text`
 `;
 
 const FormSection = styled.View`
-  flex: 1;
+  padding-bottom: ${theme.spacing.md};
+`;
+
+const Footer = styled.View`
+  padding: ${theme.spacing.md};
+  background-color: ${theme.colors.background};
 `;
 
 export default UserFormLayout;

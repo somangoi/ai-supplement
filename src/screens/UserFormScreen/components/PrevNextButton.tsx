@@ -19,9 +19,7 @@ const PrevNextButton = ({ onPrev, onNext, prevTitle = "이전", nextTitle = "다
 };
 
 const ButtonContainer = styled.View`
-  margin-top: ${theme.spacing.lg};
   flex-direction: row;
-
   gap: ${theme.spacing.md};
 `;
 
