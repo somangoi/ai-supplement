@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { queryClient } from "@/lib/queryClient";
 import UserFormScreen from "@/screens/UserFormScreen";
 import ResultScreen from "@/screens/ResultScreen";
-import { RootStackParamList } from "@/types/navigation";
+import { RootStackParamList } from "@/shared/types/navigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

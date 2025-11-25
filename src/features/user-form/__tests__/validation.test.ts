@@ -1,4 +1,4 @@
-import { healthInputSchema, type HealthInput } from "../src/screens/UserFormScreen/schemas";
+import { healthInputSchema, type HealthInput } from "@/features/user-form/types/schemas";
 
 describe("HealthInput Validation", () => {
   const expectValid = (field: string, value: any) => {

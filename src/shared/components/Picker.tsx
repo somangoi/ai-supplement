@@ -2,7 +2,7 @@ import React from "react";
 import { Platform, StyleSheet } from "react-native";
 import { Picker as RNPicker } from "@react-native-picker/picker";
 import styled from "@emotion/native";
-import { theme } from "@/styles/theme";
+import { theme } from "@/shared/styles/theme";
 
 interface PickerOption {
   label: string;

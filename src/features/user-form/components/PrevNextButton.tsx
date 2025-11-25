@@ -1,6 +1,6 @@
-import { Button } from "@/components/Button";
+import { Button } from "@/shared/components/Button";
 import styled from "@emotion/native";
-import { theme } from "@/styles/theme";
+import { theme } from "@/shared/styles/theme";
 
 interface Props {
   onPrev: () => void;
@@ -19,9 +19,7 @@ const PrevNextButton = ({ onPrev, onNext, prevTitle = "이전", nextTitle = "다
 };
 
 const ButtonContainer = styled.View`
-  margin-top: ${theme.spacing.lg};
   flex-direction: row;
-
   gap: ${theme.spacing.md};
 `;
 

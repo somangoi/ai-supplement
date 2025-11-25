@@ -1,22 +1,22 @@
 import { View } from "react-native";
 import { useImmerReducer } from "use-immer";
-import { formReducer, type FormState, type FormEvent } from "./utils/formMachine";
-import IntroStep from "./components/IntroStep";
-import Step1_BasicInfo from "./components/Step1_BasicInfo";
-import Step2_BodyInfo from "./components/Step2_BodyInfo";
-import Step3_Medications from "./components/Step3_Medications";
-import Step4_Concerns from "./components/Step4_Concerns";
-import Step5_Exercise from "./components/Step5_Exercise";
-import Step5_1_ExerciseDetail from "./components/Step5_1_ExerciseDetail";
-import Step6_SleepPattern from "./components/Step6_SleepPattern";
-import { Layout } from "@/components/Layout";
-import { theme } from "@/styles/theme";
+import { formReducer, type FormState, type FormEvent } from "@/features/user-form/utils/formMachine";
+import IntroStep from "@/features/user-form/components/IntroStep";
+import Step1_BasicInfo from "@/features/user-form/components/Step1_BasicInfo";
+import Step2_BodyInfo from "@/features/user-form/components/Step2_BodyInfo";
+import Step3_Medications from "@/features/user-form/components/Step3_Medications";
+import Step4_Concerns from "@/features/user-form/components/Step4_Concerns";
+import Step5_Exercise from "@/features/user-form/components/Step5_Exercise";
+import Step5_1_ExerciseDetail from "@/features/user-form/components/Step5_1_ExerciseDetail";
+import Step6_SleepPattern from "@/features/user-form/components/Step6_SleepPattern";
+import { Layout } from "@/shared/components/Layout";
+import { theme } from "@/shared/styles/theme";
 import styled from "@emotion/native";
 import { useEffect } from "react";
-import { HealthInput } from "./schemas";
+import { HealthInput } from "@/features/user-form/types/schemas";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "@/types/navigation";
+import type { RootStackParamList } from "@/shared/types/navigation";
 
 export default function UserFormScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -76,5 +76,4 @@ const getProgress = (step: string) => {
 
 const Container = styled.View`
   flex: 1;
-  padding: ${theme.spacing.md};
 `;

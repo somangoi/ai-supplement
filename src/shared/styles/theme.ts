@@ -1,4 +1,4 @@
-import { COLORS, SPACING } from "@/utils/constants";
+import { COLORS, SPACING } from "@/shared/styles/constants";
 
 export const theme = {
   colors: COLORS,

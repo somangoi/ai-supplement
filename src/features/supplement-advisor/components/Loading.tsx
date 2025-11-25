@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
-import { theme } from "@/styles/theme";
+import { theme } from "@/shared/styles/theme";
 import { ActivityIndicator } from "react-native";
-import Typography from "@/components/Typography";
+import Typography from "@/shared/components/Typography";
 
 const Loading = () => {
   return (

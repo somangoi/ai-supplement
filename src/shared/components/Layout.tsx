@@ -2,7 +2,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import styled from "@emotion/native";
-import { theme } from "@/styles/theme";
+import { theme } from "@/shared/styles/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface LayoutProps {
@@ -16,13 +16,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, scrollable = true }) =
       <StatusBar style="auto" />
       <SafeAreaView style={{ flex: 1 }}>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-          {scrollable ? (
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
-              <ContentWrapper>{children}</ContentWrapper>
-            </ScrollView>
-          ) : (
-            <ContentWrapper>{children}</ContentWrapper>
-          )}
+          <ContentWrapper>{children}</ContentWrapper>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </Container>

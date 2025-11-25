@@ -1,6 +1,6 @@
-import { Button } from "@/components/Button";
-import Typography from "@/components/Typography";
-import { theme } from "@/styles/theme";
+import { Button } from "@/shared/components/Button";
+import Typography from "@/shared/components/Typography";
+import { theme } from "@/shared/styles/theme";
 import styled from "@emotion/native";
 
 type Props = {
