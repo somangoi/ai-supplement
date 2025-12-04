@@ -12,7 +12,6 @@ import Step6_SleepPattern from "@/features/user-form/components/Step6_SleepPatte
 import { Layout } from "@/shared/components/Layout";
 import { theme } from "@/shared/styles/theme";
 import styled from "@emotion/native";
-import { useEffect } from "react";
 import { HealthInput } from "@/features/user-form/types/schemas";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -27,15 +26,15 @@ export default function UserFormScreen() {
     context: {},
   });
 
-  useEffect(() => {
-    if (state.step === "completed") {
-      // 폼 데이터를 params로 전달하며 결과 화면으로 이동
-      navigation.navigate("Result", { formData: state.context as HealthInput });
-    }
-  }, [state.step, state.context, navigation]);
-
   // 단계별 렌더링 함수
   const renderStep = () => {
+    // 마지막 단계에서만 제출 로직 처리
+    const handleSleepPatternNext = (data: Partial<HealthInput>) => {
+      dispatch({ type: "NEXT", data });
+      // 데이터 업데이트 후 바로 navigation
+      navigation.navigate("Result", { formData: { ...state.context, ...data } as HealthInput });
+    };
+
     switch (state.step) {
       case "intro":
         return <IntroStep onNext={() => dispatch({ type: "NEXT", data: {} })} />;
@@ -52,7 +51,7 @@ export default function UserFormScreen() {
       case "exerciseDetail":
         return <Step5_1_ExerciseDetail initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
       case "sleepPattern":
-        return <Step6_SleepPattern initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
+        return <Step6_SleepPattern initialData={state.context} onNext={handleSleepPatternNext} onPrev={(data) => dispatch({ type: "PREV", data })} />;
       default:
         return null;
     }

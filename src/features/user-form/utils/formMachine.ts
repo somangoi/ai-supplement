@@ -2,7 +2,7 @@ import { Draft } from "immer";
 import { HealthInput } from "../types/schemas";
 
 // 1. 상태(State) 정의
-export type FormStep = "intro" | "basicInfo" | "bodyInfo" | "medications" | "concerns" | "exercise" | "exerciseDetail" | "sleepPattern" | "completed";
+export type FormStep = "intro" | "basicInfo" | "bodyInfo" | "medications" | "concerns" | "exercise" | "exerciseDetail" | "sleepPattern";
 
 // 2. 컨텍스트(Context) 데이터 정의
 export type FormContext = Partial<HealthInput>;
@@ -73,7 +73,7 @@ export const formReducer = (draft: Draft<FormState>, event: FormEvent): void => 
       break;
 
     case "sleepPattern":
-      if (event.type === "NEXT") draft.step = "completed";
+      // NEXT는 처리하지 않음 - 대신 컴포넌트에서 직접 navigation
       if (event.type === "PREV") {
         // 이전 단계가 exerciseDetail일 수도 있고 exercise일 수도 있음
         // exercise 값을 확인하여 이전 단계 결정
