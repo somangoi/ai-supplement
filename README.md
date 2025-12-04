@@ -352,10 +352,10 @@ npm start -- --clear
 
 ```bash
 # iOS (macOS only)
-npx expo run:ios
+npx expo start --ios
 
 # Android
-npx expo run:android
+npx expo start --android
 ```
 
 ### 로컬 빌드 (고급)
