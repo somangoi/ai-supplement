@@ -2,12 +2,9 @@ import { Button } from "@/shared/components/Button";
 import Typography from "@/shared/components/Typography";
 import { theme } from "@/shared/styles/theme";
 import styled from "@emotion/native";
+import { StepComponentProps } from "../types";
 
-type Props = {
-  onNext: () => void;
-};
-
-const IntroStep = ({ onNext }: Props) => {
+const IntroStep = ({ onNext }: StepComponentProps) => {
   return (
     <Container>
       <TextWrapper>
@@ -15,7 +12,7 @@ const IntroStep = ({ onNext }: Props) => {
         <Typography color="text" name="lg" text="영양제 추천을 해드립니다." containerStyle={{ alignItems: "center" }} />
       </TextWrapper>
       <ButtonContainer>
-        <Button title="시작하기" onPress={onNext} />
+        <Button title="시작하기" onPress={() => onNext({})} />
       </ButtonContainer>
     </Container>
   );
