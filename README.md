@@ -92,7 +92,6 @@ AI 기반 개인 맞춤형 영양제 추천 모바일 애플리케이션입니�
 ### State Management & Forms
 
 - **React Hook Form 7.66.1** - 폼 상태 관리
-- **Zustand 5.0.8** - 전역 상태 관리
 - **Immer 11.0.0 & use-immer 0.11.0** - 불변성 관리
 
 ### Navigation
@@ -103,7 +102,6 @@ AI 기반 개인 맞춤형 영양제 추천 모바일 애플리케이션입니�
 ### Data Fetching & Validation
 
 - **TanStack React Query 5.90.10** - 서버 상태 관리 및 캐싱
-- **Axios 1.13.2** - HTTP 클라이언트
 - **Zod 4.1.12** - 스키마 기반 데이터 유효성 검증
 
 ### Styling
