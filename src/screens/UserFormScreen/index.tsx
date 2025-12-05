@@ -1,6 +1,5 @@
-import { View } from "react-native";
 import { useImmerReducer } from "use-immer";
-import { formReducer, type FormState, type FormEvent } from "@/features/user-form/utils/formMachine";
+import { formReducer, type FormState, type FormEvent, STEP_CONFIG, getStepProgress } from "@/features/user-form/utils/formMachine";
 import IntroStep from "@/features/user-form/components/IntroStep";
 import Step1_BasicInfo from "@/features/user-form/components/Step1_BasicInfo";
 import Step2_BodyInfo from "@/features/user-form/components/Step2_BodyInfo";
@@ -17,61 +16,76 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "@/shared/types/navigation";
 
+const STEP_COMPONENTS = {
+  intro: IntroStep,
+  basicInfo: Step1_BasicInfo,
+  bodyInfo: Step2_BodyInfo,
+  medications: Step3_Medications,
+  concerns: Step4_Concerns,
+  exercise: Step5_Exercise,
+  exerciseDetail: Step5_1_ExerciseDetail,
+  sleepPattern: Step6_SleepPattern,
+} as const;
+
 export default function UserFormScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  // 상태 머신 초기화
   const [state, dispatch] = useImmerReducer<FormState, FormEvent>(formReducer, {
     step: "intro" as const,
     context: {},
   });
 
-  // 단계별 렌더링 함수
-  const renderStep = () => {
-    // 마지막 단계에서만 제출 로직 처리
-    const handleSleepPatternNext = (data: Partial<HealthInput>) => {
-      dispatch({ type: "NEXT", data });
-      // 데이터 업데이트 후 바로 navigation
-      navigation.navigate("Result", { formData: { ...state.context, ...data } as HealthInput });
-    };
+  // 공통 핸들러
+  const handleNext = (data: Partial<HealthInput>) => dispatch({ type: "NEXT", data });
+  const handlePrev = (data?: Partial<HealthInput>) => dispatch({ type: "PREV", data });
 
-    switch (state.step) {
-      case "intro":
-        return <IntroStep onNext={() => dispatch({ type: "NEXT", data: {} })} />;
-      case "basicInfo":
-        return <Step1_BasicInfo initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      case "bodyInfo":
-        return <Step2_BodyInfo initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      case "medications":
-        return <Step3_Medications initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      case "concerns":
-        return <Step4_Concerns initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      case "exercise":
-        return <Step5_Exercise initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      case "exerciseDetail":
-        return <Step5_1_ExerciseDetail initialData={state.context} onNext={(data) => dispatch({ type: "NEXT", data })} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      case "sleepPattern":
-        return <Step6_SleepPattern initialData={state.context} onNext={handleSleepPatternNext} onPrev={(data) => dispatch({ type: "PREV", data })} />;
-      default:
-        return null;
-    }
+  // 제출 핸들러 (마지막 단계 전용)
+  const handleSubmit = (data: Partial<HealthInput>) => {
+    dispatch({ type: "NEXT", data });
+    navigation.navigate("Result", { formData: { ...state.context, ...data } as HealthInput });
+  };
+
+  // 현재 step의 컴포넌트 렌더링
+  const renderStep = () => {
+    const config = STEP_CONFIG[state.step];
+    if (!config) return null;
+
+    const Component = STEP_COMPONENTS[state.step];
+    if (!Component) return null;
+
+    const isIntro = state.step === "intro";
+
+    return (
+      <Component
+        initialData={!isIntro ? state.context : undefined}
+        onNext={config.hasSubmit ? handleSubmit : handleNext}
+        onPrev={!isIntro ? handlePrev : undefined}
+      />
+    );
   };
 
   return (
     <Layout>
-      <View style={{ height: 10, backgroundColor: theme.colors.surface, width: "100%" }}>
-        <View style={{ height: "100%", backgroundColor: theme.colors.primary, width: (getProgress(state.step) as unknown as number) || 10, borderTopEndRadius: 8, borderEndEndRadius: 8 }} />
-      </View>
+      <ProgressBar>
+        <ProgressFill style={{ width: `${getStepProgress(state.step)}%` }} />
+      </ProgressBar>
       <Container>{renderStep()}</Container>
     </Layout>
   );
 }
 
-const getProgress = (step: string) => {
-  const steps = ["basicInfo", "bodyInfo", "medications", "concerns", "exercise", "exerciseDetail", "sleepPattern"];
-  const index = steps.indexOf(step);
-  return `${((index + 1) / steps.length) * 100}%`;
-};
+const ProgressBar = styled.View`
+  height: 10px;
+  background-color: ${theme.colors.surface};
+  width: 100%;
+`;
+
+const ProgressFill = styled.View`
+  height: 100%;
+  background-color: ${theme.colors.primary};
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+`;
 
 const Container = styled.View`
   flex: 1;
